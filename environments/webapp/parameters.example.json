@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "km"
+  },
+  {
+    "ParameterKey": "ImageId",
+    "ParameterValue": "REPLACE-ME-ImageId"
+  },
+  {
+    "ParameterKey": "DeploymentBucket",
+    "ParameterValue": "REPLACE-ME-DeploymentBucket"
+  },
+  {
+    "ParameterKey": "Environment",
+    "ParameterValue": "REPLACE-ME-Environment"
+  },
+  {
+    "ParameterKey": "SubnetIds",
+    "ParameterValue": "REPLACE-ME-SubnetIds"
+  }
+]
