@@ -10,6 +10,8 @@ Parameters:
     Type: String
   SubnetIds:
     Type: String
+  VpcId:
+    Type: String
 
 Resources:
   launchConfiguration:
@@ -23,6 +25,9 @@ Resources:
       IamInstanceProfile:
         Ref: instanceProfile
       InstanceType: t2.micro
+      SecurityGroups:
+        -
+          Ref: securityGroup
       UserData:
               Fn::Base64:
                 !Sub |
@@ -33,6 +38,14 @@ Resources:
                   curl -O https://aws-codedeploy-${AWS::Region}.s3.amazonaws.com/latest/install
                   chmod +x ./install
                   ./install auto
+
+                  echo "Installing nodejs, npm"
+                  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
+                  nvm install v6.11.3
+
+                  echo "Create application home"
+                  mkdir -p /home/ec2-user/webapp
+                  chown -R ec2-user:ec2-user /home/ec2-user
 
   autoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -97,4 +110,22 @@ Resources:
                 Action:
                   - s3:Get*
                   - s3:List*
+
+  securityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: webapp instance security group
+      VpcId:
+        Ref: VpcId
+      SecurityGroupIngress:
+        -
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        -
+          IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
 

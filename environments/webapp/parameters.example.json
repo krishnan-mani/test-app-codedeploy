@@ -18,5 +18,9 @@
   {
     "ParameterKey": "SubnetIds",
     "ParameterValue": "REPLACE-ME-SubnetIds"
+  },
+  {
+    "ParameterKey": "VpcId",
+    "ParameterValue": "REPLACE-ME-VpcId"
   }
 ]
